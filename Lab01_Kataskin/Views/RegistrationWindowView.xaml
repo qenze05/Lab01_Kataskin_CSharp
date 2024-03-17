@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="Lab01_Kataskin.RegistrationWindowView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Lab01_Kataskin"
+             xmlns:controls="clr-namespace:Lab01_Kataskin.Tools.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:RegistrationWindowViewModel RegistrationWindowViewModel |(in Lab01_Kataskin.ViewModels)}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <controls:TextBlockWithCaption x:Name="TbName" Caption="Name" TbText="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0"></controls:TextBlockWithCaption>
+        <controls:TextBlockWithCaption x:Name="TbSurname" Caption="Surname" Grid.Row="0" Grid.Column="1" TbText="{Binding UserSurname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></controls:TextBlockWithCaption>
+        <controls:TextBlockWithCaption x:Name="TbEmail" Caption="Email" Grid.Row="1" Grid.Column="0" TbText="{Binding UserEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></controls:TextBlockWithCaption>
+        <controls:DatePickerBlockWithCaption x:Name="TbDate" Grid.Row="1" Grid.Column="1" DpDate="{Binding UserBirthdate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></controls:DatePickerBlockWithCaption>
+        <Button Grid.Row="2" Grid.Column="0" Command="{Binding ProceedCommand}" Content="Proceed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="25" Margin="5"></Button>
+        <Button Grid.Row="2" Grid.Column="1" Command="{Binding CancelCommand}" Content="Cancel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="25" Margin="5"></Button>
+
+    </Grid>
+    
+
+</UserControl>

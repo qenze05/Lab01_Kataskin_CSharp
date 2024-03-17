@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="Lab01_Kataskin.Tools.Controls.DatePickerBlockWithCaption"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Lab01_Kataskin.Tools.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="100" d:DesignWidth="300" x:Name="DpWithCaption">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Name="TbCaption" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Caption" FontSize="9" Margin="5, 5, 5, 2"></TextBlock>
+        <DatePicker Name="DatePicker" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Height="20"  SelectedDate="{Binding ElementName=DpWithCaption, Path=DpDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="2, 0, 2, 5" FontFamily="Arial" FontSize="12"></DatePicker>
+    </Grid>
+</UserControl>

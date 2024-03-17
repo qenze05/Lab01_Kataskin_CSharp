@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <local:DatePickerView></local:DatePickerView>
+        <local:RegistrationWindowView></local:RegistrationWindowView>
     </Grid>
 </Window>

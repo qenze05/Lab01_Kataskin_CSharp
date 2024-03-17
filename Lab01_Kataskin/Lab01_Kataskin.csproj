@@ -14,6 +14,7 @@
         <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <WarningLevel>4</WarningLevel>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,10 +52,23 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
+        <Compile Include="Models\Person.cs" />
         <Compile Include="Models\User.cs" />
-        <Compile Include="ViewModels\DatePickerViewModel.cs" />
-        <Compile Include="Views\DatePickerView.xaml.cs">
-          <DependentUpon>DatePickerView.xaml</DependentUpon>
+        <Compile Include="Services\AuthService.cs" />
+        <Compile Include="Tools\Controls\DatePickerBlockWithCaption.xaml.cs">
+          <DependentUpon>DatePickerBlockWithCaption.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Tools\Controls\TextBlockWithCaption.xaml.cs">
+          <DependentUpon>TextBlockWithCaption.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Tools\RelayCommand.cs" />
+        <Compile Include="ViewModels\PersonInfoWindowViewModel.cs" />
+        <Compile Include="ViewModels\RegistrationWindowViewModel.cs" />
+        <Compile Include="Views\PersonInfoWindowView.xaml.cs">
+          <DependentUpon>PersonInfoWindowView.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\RegistrationWindowView.xaml.cs">
+          <DependentUpon>RegistrationWindowView.xaml</DependentUpon>
         </Compile>
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
@@ -68,7 +82,10 @@
             <DependentUpon>MainWindow.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Page Include="Views\DatePickerView.xaml" />
+        <Page Include="Tools\Controls\DatePickerBlockWithCaption.xaml" />
+        <Page Include="Tools\Controls\TextBlockWithCaption.xaml" />
+        <Page Include="Views\PersonInfoWindowView.xaml" />
+        <Page Include="Views\RegistrationWindowView.xaml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs">
