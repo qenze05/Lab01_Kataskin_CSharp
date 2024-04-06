@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
+using System.Text.RegularExpressions;
+using Lab01_Kataskin.Exceptions;
 using Lab01_Kataskin.Models;
 
 namespace Lab01_Kataskin.Services
@@ -10,6 +12,7 @@ namespace Lab01_Kataskin.Services
         {
             var emailVal = ValidateEmail(email);
             var dateVal = ValidateDate(birthdate);
+            
 
             if (!emailVal && !dateVal)
             {
@@ -33,18 +36,60 @@ namespace Lab01_Kataskin.Services
         {
             try
             {
+                ValidateEmailRegex(emailString);
                 _ = new MailAddress(emailString);
+            }
+            catch (WrongEmailException)
+            {
+                return false;
             }
             catch (Exception)
             {
                 return false;
             }
+            
 
             return true;
         }
+
+        private static void ValidateEmailRegex(string email)
+        {
+            if (!new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").IsMatch(email))
+            {
+                throw new WrongEmailException();
+            }
+        }
         public static bool ValidateDate(DateTime date)
         {
-            return date <= DateTime.Today && Person.GetAge(date) <= 135;
+            try
+            {
+                ValidateAge(date);
+            }
+            catch (TooOldException)
+            {
+                Console.Out.WriteLine("Too old");
+                return false;
+            }
+            catch (NegativeAgeException)
+            {
+                Console.Out.WriteLine("Negative age");
+
+                return false;
+            }
+
+            return true;
+        }
+
+        public static void ValidateAge(DateTime date)
+        {
+            if (date > DateTime.Today)
+            {
+                throw new NegativeAgeException("Negative age");
+            }  
+            if (Person.GetAge(date) > 135)
+            {
+                throw new TooOldException("Age is too high");
+            }
         }
     }
 }

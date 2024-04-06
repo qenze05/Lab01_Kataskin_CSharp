@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Lab01_Kataskin"
              xmlns:controls="clr-namespace:Lab01_Kataskin.Tools.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:RegistrationWindowViewModel RegistrationWindowViewModel |(in Lab01_Kataskin.ViewModels)}">
+             d:DesignHeight="300" d:DesignWidth="300" IsEnabled="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" d:DataContext="{d:RegistrationWindowViewModel RegistrationWindowViewModel |(in Lab01_Kataskin.ViewModels)}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>

@@ -52,6 +52,8 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
+        <Compile Include="Exceptions\AgeExceptions.cs" />
+        <Compile Include="Exceptions\WrongEmailException.cs" />
         <Compile Include="Models\Person.cs" />
         <Compile Include="Models\User.cs" />
         <Compile Include="Services\AuthService.cs" />
@@ -102,7 +104,7 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <None Include="App.config"/>
+        <None Include="App.config" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Windows;
+using Lab01_Kataskin.Exceptions;
 using Lab01_Kataskin.Models;
 using Lab01_Kataskin.Services;
 using Lab01_Kataskin.Tools;
@@ -16,7 +17,7 @@ namespace Lab01_Kataskin.ViewModels
         private RelayCommand _proceedCommand;
         private RelayCommand _cancelCommand;
         private readonly Action _proceedAction;
-        
+        private bool _isEnabled = true;        
         public RelayCommand ProceedCommand => _proceedCommand ?? (_proceedCommand = new RelayCommand(Proceed, CanExecute));
         public RelayCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new RelayCommand(Cancel));
 
@@ -30,15 +31,20 @@ namespace Lab01_Kataskin.ViewModels
             Person? user = null;
             try
             {
+                IsEnabled = false;
                 user = await Task.Run(() =>
                     AuthService.AuthenticateUser(UserName, UserSurname, UserEmail, UserBirthdate));
-                
-                
+
+
             }
             catch (Exception)
             {
                 MessageBox.Show("Unable to create User");
                 return;
+            }
+            finally
+            {
+                IsEnabled = true;
             }
 
             if (user == null)
@@ -47,11 +53,21 @@ namespace Lab01_Kataskin.ViewModels
                 return;
             }
 
-            if (!AuthService.ValidateDate(user.Birthdate))
+            try
             {
-                MessageBox.Show("Unable to create User: Invalid age");
+                AuthService.ValidateAge(user.Birthdate);
+            }
+            catch (TooOldException)
+            {
+                MessageBox.Show("Unable to create User: Too Old");
                 return;
             }
+            catch (NegativeAgeException)
+            {
+                MessageBox.Show("Unable to create User: Negative Age");
+                return;
+            }
+            
             
             User = user;
             _proceedAction.Invoke();
@@ -63,13 +79,22 @@ namespace Lab01_Kataskin.ViewModels
             return !string.IsNullOrWhiteSpace(UserName) 
                 && !string.IsNullOrWhiteSpace(UserSurname) 
                 && (AuthService.ValidateEmail(UserEmail) 
-                    || AuthService.ValidateDate(UserBirthdate));
+                    && AuthService.ValidateDate(UserBirthdate));
         }
 
         
 
         public Person User { get; private set; }
 
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                _isEnabled = value;
+                OnPropertyChanged("IsEnabled");
+            } 
+        }
         public string UserName
         {
             get => _userName;
@@ -111,11 +136,7 @@ namespace Lab01_Kataskin.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
-
-        // public RegistrationWindowViewModel()
-        // {
-        //     UserBirthdate = DateTime.Now;
-        // }
+        
         public RegistrationWindowViewModel(Action proceedAction)
         {
             UserBirthdate = DateTime.Today;
